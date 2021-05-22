@@ -26,7 +26,7 @@
 
 void DrawSun      (int x, int y, int rSun, int luch);
 void DrawElka     (int x, int y, double size, int crown1, int crown2, int crown3,
-                   int kachanie, int widthTrunk);
+                   double kachanie, int widthTrunk);
 void DrawHaus     (int x, int y, double sizeX, double sizeY,
                    int shiftKrisha, int heightKrisha, int widthWindow, int heightWindow,
                    COLORREF wallColor, COLORREF krishaColor, COLORREF windowColor);
@@ -105,8 +105,8 @@ void DrawSun (int x, int y, int rSun, int luch)
 //! @param crown1     Размер верхней кроны Ёлочки
 //! @param crown2     Размер средней кроны Ёлочки
 //! @param crown3     Размер нижней кроны Ёлочки
-//! @param kachanie   Ёлочка может покачиваться
-//! @param widthTrunk Ширина ствола Ёлочки
+//! @param kachanie   Ёлочка может покачиваться (-2..2)
+//! @param widthTrunk Ширина ствола Ёлочки (0..20)
 //!
 //! </td>
 //! </tr>
@@ -118,7 +118,7 @@ void DrawSun (int x, int y, int rSun, int luch)
 //! @endcode
 //}-----------------------------------------------------------------------------
 
-void DrawElka (int x, int y, double size, int crown1, int crown2, int crown3, int kachanie, int widthTrunk)
+void DrawElka (int x, int y, double size, int crown1, int crown2, int crown3, double kachanie, int widthTrunk)
     {
     txSetColor (TX_GREEN);
     txSetFillColor (TX_GREEN);
@@ -222,13 +222,13 @@ void DrawHaus (int x, int y, double sizeX, double sizeY,
 //! @param x         x - координата шеи Девочки
 //! @param y         y - координата шеи Девочки
 //! @param sizeGirl  Размер Девочки. Девочки могут быть маленькими и большими
-//! @param legs      Подъем ноги Девочки. Девочка может ходить вперед или назад
-//! @param eyeR      Радиус глаз Девочки
+//! @param legs      Подъем ноги Девочки. Девочка может ходить вперед или назад (0..2)
+//! @param eyeR      Радиус глаз Девочки (0..3)
 //! @param crazy     У Девочки могут быть разные по величине глаза
-//! @param face      Девочка может повернуться спиной (т.е. без лица)
-//! @param moveHandR Движение правой руки Девочки
-//! @param moveHandL Движение левой руки Девочки
-//! @param smile     Улыбка Девочки
+//! @param face      Девочка может повернуться спиной (т.е. без лица).  Значение 0/1
+//! @param moveHandR Движение правой руки Девочки (-100..30)
+//! @param moveHandL Движение левой руки Девочки  (-100..30)
+//! @param smile     Улыбка Девочки (0..6)
 //! @param bodyColor Цвет платья Девочки
 //!
 //! </td>
@@ -309,11 +309,11 @@ void DrawGirl (int x, int y, double sizeGirl, int legs, int eyeR, int crazy, int
 //! @param size       Размер Кота
 //! @param lengthTail Длина хвостика Кота (ведь хвосты бывают разные)
 //! @param heightTail Высота подъема хвостика Кота (0 - горизонтально)
-//! @param pawsL      Шаг задних лап Кота
-//! @param pawsR      Шаг передних лап Кота
-//! @param us1        Поднимает/опускает верхний ус Кота
-//! @param us2        Поднимает/опускает средний ус Кота
-//! @param us3        Поднимает/опускает нижний ус Кота
+//! @param pawsL      Шаг задних лап Кота   (0..20)
+//! @param pawsR      Шаг передних лап Кота (0..20)
+//! @param us1        Поднимает/опускает верхний ус Кота (-2..2)
+//! @param us2        Поднимает/опускает средний ус Кота (-2..2)
+//! @param us3        Поднимает/опускает нижний ус Кота  (-2..2)
 //! @param catColor   Цвет Кота
 //!
 //! </td>
@@ -383,11 +383,12 @@ void DrawCat (int x, int y, double size, int lengthTail, int heightTail,
 //!
 //! @param x          x - координата центра туловища Цыпленка
 //! @param y          y - координата центра туловища Цыпленка
-//! @param sizeX      Размер ширины Цыпленка
-//! @param sizeY      Размер высоты Цыпленка (Если отрицательно, то смотрит вправо)
-//! @param moveWing   Движение крыла Цыпленка
-//! @param lengthStep Длина шага Цыпленка
-//! @param moveBeak   Движение клюва Цыпленка (Может кричать!)
+//! @param sizeX      Размер ширины Цыпленка(Если отрицательно, то смотрит вправо)
+//! @param sizeY      Размер высоты Цыпленка
+//! @param moveWing   Движение крыла Цыпленка. Машет крыльями вверх-вниз.
+//!                   Характерные значения: -20 (крыло опущено), 30 (крыло поднято)
+//! @param lengthStep Длина шага Цыпленка. 0 - ноги вместе, 20 - "шагает"
+//! @param moveBeak   Движение клюва Цыпленка (Может кричать!) Лучше указывать значения в диапазоне 0 .. 10
 //!
 //! </td>
 //! </tr>
@@ -438,7 +439,7 @@ void DrawChick (int x, int y, double sizeX, double sizeY, int moveWing, int leng
 //{=============================================================================
 //! Рисует Самолет
 //!
-//! Рисует Самолет
+//! Рисует Самолет, который требует доработки. Пока он просто летает
 //!
 //! <table border = 0>
 //! <tr valign=middle>
@@ -547,8 +548,8 @@ void DrawCloud (int x, int y, double sizeCloud, COLORREF cloudColor)
 //! @param y           y - координата крыши Автобуса
 //! @param sizeX       Размер длины Автобуса
 //! @param sizeY       Размер высоты Автобуса
-//! @param moveWheel   Движение колеса Автобуса (вверх/вниз)
-//! @param headlights  Свет фар (без этого никак нельзя ездить)
+//! @param moveWheel   Движение колеса Автобуса (вверх (1)/вниз (-1)).
+//! @param headlights  Свет фар. Без этого же никак нельзя ездить). Значения true/false
 //! @param busColor    Цвет Автобуса
 //! @param windowColor Цвет окон Абтобуса
 //!
